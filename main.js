@@ -27,7 +27,27 @@ function applyJump(entity) {
 }
   
 function drawPlayer(entity) {
+    noStroke();
+    fill("#ffb677");
     square(entity.x, entity.y, 40);
+}
+
+// ブロックエンティティ用
+
+function createBlock(y) {
+    return {
+      x: 900,
+      y,
+      vx: -2,
+      vy: 0
+    };
+}
+  
+function drawBlock(entity) {
+    noStroke();
+    fill("#5f6caf");
+    // 四角形の描画(x, y, width, height)
+    rect(entity.x, entity.y, 80, 400);
 }
 
 // ---- ゲーム全体に関わる部分 ---------------------------------------------
@@ -40,6 +60,8 @@ let player = {
     vy: 0   // 速度 y成分
 }
 
+let block;
+
 // ---- setup/draw 他 --------------------------------------------------
 
 function setup() {
@@ -48,18 +70,22 @@ function setup() {
   
     // プレイヤーを作成
     player = createPlayer();
+
+    block = createBlock(300);
 }
   
 function draw() {
     // プレイヤーの位置を更新
     updatePosition(player);
+    updatePosition(block);
 
     // プレイヤーに重力を適用
     applyGravity(player);
 
     // プレイヤーを描画
-    background(0);
+    background("#edf7fa");
     drawPlayer(player);
+    drawBlock(block);
 }
   
 function mousePressed() {
